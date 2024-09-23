@@ -1,0 +1,151 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: antoniov2g2@gmail.com
+  description: API de prueba-tecnica
+  termsOfService: localhost:8080
+  title: prueba-tecnica-api
+  version: 1.0.0-alpha01
+externalDocs:
+  description: find out more about REST API
+  url: https://swagger.io
+servers:
+- url: /
+tags:
+- description: Api de prueba-tecnica
+  name: prueba-tecnica-alg
+paths:
+  /v1/prices/{product}/{date}/{brand}:
+    get:
+      description: Servicio REST encargado de buscar y recuperar información acerca
+        de Producto
+      operationId: searchPricesToApply
+      parameters:
+      - description: Identificador del producto
+        in: path
+        name: product
+        required: true
+        schema:
+          type: integer
+      - description: Fecha de aplicacion
+        in: path
+        name: date
+        required: true
+        schema:
+          format: date-time
+          type: string
+      - description: Identificador de la cadena
+        in: path
+        name: brand
+        required: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PricesDto'
+          description: Operación exitosa
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Petición errónea
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Sin autorización
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: No encontrado
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: No aceptado
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Demasiadas peticiones
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: Default
+      summary: Servicio REST para prices
+      tags:
+      - Product
+components:
+  schemas:
+    PricesDto:
+      example:
+        end_date: 2000-01-23T04:56:07.000+00:00
+        price_list: 6
+        price: 5.962133916683182
+        product_id: product_id
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        priority: 1
+        curr: curr
+        brand_id: 0
+        start_date: 2000-01-23T04:56:07.000+00:00
+      properties:
+        id:
+          description: Codigo identificador del producto
+          format: uuid
+          type: string
+        product_id:
+          description: Identificador código de producto.
+          type: string
+        brand_id:
+          description: Foreign key de la cadena del grupo
+          type: integer
+        start_date:
+          description: fecha inicio del precio tarifa
+          format: date-time
+          type: string
+        end_date:
+          description: fecha fin del precio tarifa
+          format: date-time
+          type: string
+        price_list:
+          description: Identificador de la tarifa de precios aplicable.
+          type: integer
+        priority:
+          description: Desambiguador de aplicación de precios
+          type: integer
+        price:
+          description: Precio final de la venta
+          format: double
+          type: number
+        curr:
+          description: Iso de la moneda
+          type: string
+      type: object
+    ApiError:
+      properties:
+        status:
+          description: String representation of the status code
+          type: string
+        message:
+          description: Error description
+          type: string
+        errors:
+          description: Additional error information
+          items:
+            type: string
+          type: array
+      required:
+      - message
+      - status
+      type: object

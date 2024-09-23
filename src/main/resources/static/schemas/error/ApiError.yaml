@@ -1,0 +1,16 @@
+type: object
+required:
+  - status
+  - message
+properties:
+  status:
+    type: string
+    description: String representation of the status code
+  message:
+    type: string
+    description: Error description
+  errors:
+    type: array
+    description: Additional error information
+    items:
+      type: string

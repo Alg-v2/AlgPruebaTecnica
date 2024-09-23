@@ -1,0 +1,25 @@
+openapi: 3.0.3
+info:
+  title: prueba-tecnica-api
+  description: API de prueba-tecnica
+  termsOfService: localhost:8080
+  contact:
+    email: antoniov2g2@gmail.com
+  version: 1.0.0-alpha01
+externalDocs:
+  description: find out more about REST API
+  url: https://swagger.io
+servers:
+  - url: /
+tags:
+  - name: prueba-tecnica-alg
+    description: Api de prueba-tecnica
+
+paths:
+  /v1/prices/{product}/{date}/{brand}:
+    $ref: "./paths/prices/pricesToApply.yaml"
+
+components:
+  schemas:
+    PricesDto:
+      $ref: "schemas/prices/PricesDto.yaml"

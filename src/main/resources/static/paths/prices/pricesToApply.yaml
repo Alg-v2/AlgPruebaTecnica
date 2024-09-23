@@ -1,0 +1,69 @@
+get:
+  tags:
+    - Product
+  summary: Servicio REST para prices
+  description: Servicio REST encargado de buscar y recuperar información acerca de Producto
+  operationId: searchPricesToApply
+  parameters:
+    - name: product
+      in: path
+      required: true
+      description: Identificador del producto
+      schema:
+        type: integer
+    - name: date
+      in: path
+      required: true
+      description: Fecha de aplicacion
+      schema:
+        type: string
+        format: date-time
+    - name: brand
+      in: path
+      required: true
+      description: Identificador de la cadena
+      schema:
+        type: integer
+  responses:
+    200:
+      description: Operación exitosa
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/prices/PricesDto.yaml"
+    400:
+      description: Petición errónea
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/error/ApiError.yaml"
+    401:
+      description: Sin autorización
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/error/ApiError.yaml"
+    404:
+      description: No encontrado
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/error/ApiError.yaml"
+    406:
+      description: No aceptado
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/error/ApiError.yaml"
+    429:
+      description: Demasiadas peticiones
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/error/ApiError.yaml"
+    default:
+      description: "Default"
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/error/ApiError.yaml"

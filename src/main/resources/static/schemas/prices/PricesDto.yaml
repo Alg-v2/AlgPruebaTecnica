@@ -1,0 +1,33 @@
+type: object
+properties:
+  id:
+    type: string
+    format: uuid
+    description: Codigo identificador del producto
+  product_id:
+    type: string
+    description: Identificador código de producto.
+  brand_id:
+    type: integer
+    description: Foreign key de la cadena del grupo
+  start_date:
+    type: string
+    format: date-time
+    description: fecha inicio del precio tarifa
+  end_date:
+    type: string
+    format: date-time
+    description: fecha fin del precio tarifa
+  price_list:
+    type: integer
+    description: Identificador de la tarifa de precios aplicable.
+  priority:
+    type: integer
+    description: Desambiguador de aplicación de precios
+  price:
+    type: number
+    format: double
+    description: Precio final de la venta
+  curr:
+    type: string
+    description: Iso de la moneda
